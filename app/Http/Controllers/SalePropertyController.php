@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\SaleProperty;
 use App\Models\PropertyType;
+use App\Models\propertyCategory;
+use App\Models\Country;
+use App\Models\Province;
+use App\Models\District;
+use App\Models\Municipality;
 use Illuminate\Http\Request;
 
 class SalePropertyController extends Controller
@@ -27,8 +32,9 @@ class SalePropertyController extends Controller
      */
     public function create()
     {
-        $propertyType=PropertyType::all(['name', 'id']);
-        return view('saleProperty.create', compact('propertyType'));
+        $country=Country::all(['name', 'id']);
+        $propertyType=PropertyType::where('name', 'sale')->get();
+        return view('saleProperty.create', compact('propertyType', 'country'));
     }
 
     /**
@@ -40,15 +46,36 @@ class SalePropertyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'property_type' => 'required',
-            'property_category' => 'required',
             'price' => 'required',
             'description' => 'required',
-            'addmore.*.image' => 'required',
-               
+            'addmore.*.image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'country' => 'required',  
+            'province' => 'required',  
+            'district' => 'required',  
+            'ward' => 'required',  
+            'street' => 'required',  
+            'near_by' => 'required',  
         ]);
-    
-        SaleProperty::create($request->all());
+      $input = $request->all();
+  
+        $img = [];
+        
+         if($request->hasfile('image'))
+          {      
+           $i=0;
+           $images=[];
+             foreach($request->file('image') as $img)
+             {
+                 $destinationPath = 'sale_pro_image/';
+                 $proImage = $request->image[$i]->getClientOriginalName();
+                 $img->move($destinationPath, $proImage);
+                 $images[]=$proImage;
+                 $i++;
+             }
+             $input['image']=implode(',',$images);
+            }
+ 
+         SaleProperty::create($input);
      
         return redirect()->route('saleProperty.index')
                         ->with('success','Sale Property category created successfully.');
@@ -71,9 +98,16 @@ class SalePropertyController extends Controller
      * @param  \App\Models\SaleProperty  $saleProperty
      * @return \Illuminate\Http\Response
      */
-    public function edit(SaleProperty $saleProperty)
+    public function edit(SaleProperty $saleProperty, PropertyType $propertyType, PropertyCategory $propertyCategory, Province $province, District $district, Municipality $municipality)
+   
     {
-        return view('saleProperty.edit', compact('saleProperty'));
+        $country=Country::all(['name', 'id']);
+        $province=Province::all('name','id');
+        $district=District::all('name','id');
+        $municipality=Municipality::all('m_name','id');
+        $propertyType=PropertyType::where('name', 'sale')->get();
+        $propertyCategory=PropertyCategory::all(['name','id']);
+        return view('saleProperty.edit', compact('saleProperty','propertyType','propertyCategory','country','province','district','municipality'));
     }
 
     /**
@@ -86,14 +120,43 @@ class SalePropertyController extends Controller
     public function update(Request $request, SaleProperty $saleProperty)
     {
         $request->validate([
-            'property_type' => 'required',
-            'property_category' => 'required',
             'price' => 'required',
             'description' => 'required',
-            'addmore.*.image' => 'required',  
+            'addmore.*.image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',  
+            'country' => 'required',  
+            'province' => 'required',  
+            'district' => 'required',    
+            'ward' => 'required',  
+            'street' => 'required',  
+            'near_by' => 'required', 
         ]);
-    
-        $saleProperty->update($request->all());
+
+        $input = $request->all();
+        if (request()->hasFile('image') && request('image') != '') {
+            $imagePath = public_path('sale_pro_image/'.$saleProperty->image);
+            if(file_exists($imagePath)){
+                unlink($imagePath);
+            }
+        }
+  
+        $img = [];
+        
+         if($request->hasfile('image'))
+          {      
+           $i=0;
+           $images=[];
+             foreach($request->file('image') as $img)
+             {
+                 $destinationPath = 'sale_pro_image/';
+                 $proImage = $request->image[$i]->getClientOriginalName();
+                 $img->move($destinationPath, $proImage);
+                 $images[]=$proImage;
+                 $i++;
+             }
+             $input['image']=implode(',',$images);
+            }
+          
+        $saleProperty->update($input);
     
         return redirect()->route('saleProperty.index')
                         ->with('success','Sale Property updated successfully');
@@ -107,6 +170,11 @@ class SalePropertyController extends Controller
      */
     public function destroy(SaleProperty $saleProperty)
     {
+        $imgPath = 'sale_pro_image/'.$saleProperty->image;
+        if(file_exists($imgPath))
+        {
+         unlink(public_path($imgPath ));
+        }
         $saleProperty->delete();
 
         return redirect()->route('saleProperty.index')

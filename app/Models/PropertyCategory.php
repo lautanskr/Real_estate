@@ -15,4 +15,8 @@ class PropertyCategory extends Model
       public function PCRelation(){
         return $this->belongsTo(PropertyType::class, 'pro_type_id');
 }
+
+      public function SaleCat(){
+        return $this->hasMany(SaleProperty::class, 'pro_cat_id');
+      }
 }

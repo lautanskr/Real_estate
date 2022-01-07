@@ -20,6 +20,13 @@
 </div>
 <!-- END wrapper -->
 
+
+ <!-- Init js-->
+ <script src="{{asset('backend/assets/js/pages/form-advanced.init.js')}}"></script>
+
+ <!-- App js -->
+ <script src="{{asset('backend/assets/js/app.min.js')}}"></script>
+
 <!-- Vendor js -->
 <script src="{{asset('backend/assets/js/vendor.min.js')}}"></script>
 
@@ -30,6 +37,8 @@
 
 <!-- App js -->
 <script src="{{asset('backend/assets/js/app.min.js')}}"></script>
+
+
 
  <!-- Plugin js-->
  <script src="{{asset('backend/assets/libs/parsleyjs/parsley.min.js')}}"></script>

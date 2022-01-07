@@ -16,6 +16,10 @@ class Municipality extends Model
         return $this->hasMany(Ward::class, 'mun_id');
       }
 
+      public function wardSale(){
+        return $this->hasMany(SaleProperty::class, 'mun_id');
+      }
+
       public function DMbelongTo(){
         return $this->belongsTo(District::class, 'district_id');
       }

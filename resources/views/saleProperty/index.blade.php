@@ -49,6 +49,13 @@
                                     <th>Property category </th>
                                     <th>Price </th>
                                     <th>Description </th>
+                                    <th>Country </th>
+                                    <th>Province </th>
+                                    <th>District </th>
+                                    <th>Municipality </th>
+                                    <th>Ward </th>
+                                    <th>Street </th>
+                                    <th>Near By </th>
                                     <th width="80px">Action</th>
                                 </tr>
                             </thead>
@@ -57,13 +64,26 @@
                              @foreach ($sales as $sale)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$sale->image}}</td>
-                                    <td>{{$sale->property_type}}</td>
-                                    <td>{{$sale->property_category}}</td>
+                                            <td> 
+                                                @php
+                                    $image=explode(',', $sale->image);
+                                          @endphp
+                                                <img src="/sale_pro_image/{{$sale->image}}"width="80px" height="60px">
+                                            </td>
+                                    <td>{{$sale->SPRelation->PCRelation->name}}</td>
+                                    <td>{{$sale->SPRelation->name}}</td>
                                     <td>{{$sale->price}}</td>
                                     <td>{{$sale->description}}</td>
+                                    <td>{{$sale->MPRelation->DMbelongTo->PDRelation->PCbelongTo->name}}</td>
+                                    <td>{{$sale->MPRelation->DMbelongTo->PDRelation->name}}</td>
+                                    <td>{{$sale->MPRelation->DMbelongTo->name}}</td>
+                                    <td>{{$sale->MPRelation->m_name}}</td>
+                                    <td>{{$sale->ward}}</td>
+                                    <td>{{$sale->street}}</td>
+                                    <td>{{$sale->near_by}}</td>
                                     <td>
                                         <form action="{{ route('saleProperty.destroy',$sale->id) }}" method="POST">
+                                            <a class="btn btn-success btn-sm" href="{{ route('saleProperty.show',$sale->id) }}"><i class="ion ion-md-eye"></i></a>
                  
                                             <a class="btn btn-primary btn-sm" href="{{ route('saleProperty.edit',$sale->id) }}"><i class="ion ion-md-create"></i></a>
                            
