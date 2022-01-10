@@ -7,14 +7,11 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-
         $count['saleProperty']=$this->saleCount();
         $count['rentProperty']=$this->rentCount();
         $count['agent']=$this->agentCount();
-    
-        
-         return view('dashboard',$count);
 
+         return view('dashboard',$count);
    }
 
    public function saleCount()
@@ -39,4 +36,5 @@ class DashboardController extends Controller
    {
     return view('dashboard1'); 
    }
+  
 }
