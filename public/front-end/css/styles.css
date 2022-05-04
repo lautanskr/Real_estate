@@ -6384,6 +6384,7 @@ a.button,
   color: #fff;
 }
 
+
 .homepage-1 .job_clientSlide .owl-nav .owl-prev:hover,
 .homepage-1 .job_clientSlide .owl-nav .owl-next:hover {
   background: #FF385C;
@@ -12688,10 +12689,14 @@ section.team {
 
 .team-block {
   position: relative;
+  width: 100%;
+  margin-left: 10px;
 }
 
 .team-block .inner-box {
   position: relative;
+  width: 60%;
+  margin-left: 5px;
   padding-bottom: 0px;
   -webkit-box-shadow: 2px 2px 30px #ccc;
           box-shadow: 2px 2px 30px #ccc;
@@ -12701,19 +12706,21 @@ section.team {
 
 .team-block .inner-box .image {
   position: relative;
+  
 }
 
 .team-block .inner-box .image img {
   position: relative;
   width: 100%;
   display: block;
-  height: auto;
+  height: 250px;
 }
 
 .team-block .inner-box .lower-box {
   position: relative;
   padding: 22px 0;
   text-align: center;
+  
 }
 
 .team-block .inner-box .lower-box h3 {
@@ -12779,7 +12786,7 @@ section.team {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 40%;
   height: 100%;
   background: #fff;
   opacity: 0;

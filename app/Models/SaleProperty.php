@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Country;
+use App\Models\Municipality;
 
 class SaleProperty extends Model
 {
@@ -19,5 +21,12 @@ class SaleProperty extends Model
 
 public function MPRelation(){
     return $this->belongsTo(Municipality::class, 'mun_id');
+  }
+
+  public function country1(){
+    return $this->belongsTo(Country::class, 'country','id');
+  }
+  public function mun(){
+    return $this->belongsTo(Municipality::class, 'mun_id','id');
   }
 }

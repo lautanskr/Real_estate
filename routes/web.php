@@ -17,6 +17,8 @@ use App\Http\Controllers\DependentDropdownController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RegisteredAgentController;
 use App\Http\Controllers\LoginAgentController;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\BuyController;
 
 
 /*
@@ -84,5 +86,12 @@ Route::get('LoginAgent', [LoginAgentController::class, 'agentLogin'])->name('Log
 Route::post('/RegisterAgent', [RegisteredAgentController::class, 'store'])->name('registerAgent');
 
 Route::post('/updateStatus', [RegisteredAgentController::class, 'updateStatus'])->name('agentUpdate');
+
 Route::get('/agent', [RegisteredAgentController::class, 'index'])->name('agent');
 
+
+//for frontend
+Route::get('/', [FrontController::class, 'viewSale'])->name('index');
+
+//for buye
+Route::get('/buy', [BuyController::class, 'land'])->name('landbuy');

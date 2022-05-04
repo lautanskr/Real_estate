@@ -398,9 +398,19 @@
                                     <td>{{$agent->AMRelation->DMbelongTo->name}}</td>
                                     <td>{{$agent->AMRelation->m_name}}</td>
                                     <td>{{$agent->ward}}</td>
+
                                     <td>
-         <input data-id="{{$agent->id}}" class="toggle-class" type="checkbox" id="switch{{$loop->iteration}}" data-switch="bool" {{ $agent->status ? 'checked' : '' }}/>
-         <label  class="toggle-class" for="switch{{$loop->iteration}}" data-on-label="✔" data-off-label="X" ></label>
+         <input data-id="{{$agent->id}}" class="toggle-class status" type="checkbox" id="switch{{$loop->iteration}}" data-switch="bool" {{ $agent->status ? 'checked' : '' }} onclick="Status({{$agent->id}})" />
+         <label  for="switch{{$loop->iteration}}" data-on-label="✔" data-off-label="X" ></label>
+         <div id="status{{$agent->id}}">
+             @if( $agent->status==1)
+             <p class="text-success" >Active</p>
+             @else
+              <p class="text-danger">Inactive</p>
+             @endif
+         </div>
+
+   
 
                                 </tr>
                                 @endforeach
@@ -417,21 +427,30 @@
     <!-- end content -->
 
     <script>
-        $(function() {
-          $('.toggle-class').change(function() {
-              var id = $(this).data('id'); 
-               
-              $.ajax({
+       function Status(id)
+       {
+           $.ajax({
                   type: "POST",
                   dataType: "json",
                   url: '{{route('agentUpdate')}}',
-                  data: {'status': status, 'id': id},
+                  data: {'status':true, 'id': id,'_token':'<?php echo csrf_token() ?>',},
                   success: function(data){
-                    console.log(data.success)
+                    $('#status'+id).empty();
+                    if(data.status==0)
+                    {
+                     var success='<p class="text-success" >Active</p>';
+                    $('#status'+id).html(success);
+                    }
+                    else
+                    {
+                var status='<p class="text-danger">Inactive</p>';
+                     $('#status'+id).html(status);
+                    }
                   }
               });
-          })
-        })
+       }
+    
+        
       </script>
       
 @include('layouts.footer')

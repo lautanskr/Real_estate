@@ -1,9 +1,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-    
-<!-- Mirrored from coderthemes.com/zircos/layouts/horizontal/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 23 Dec 2021 07:43:48 GMT -->
 <head>
         <meta charset="utf-8" />
         <title>Login | RealEstate</title>
@@ -31,8 +28,8 @@
 
                             <div class="text-center account-logo-box">
                                 <div class="mt-2 mb-2">
-                                    <a href="index-2.html" class="text-success">
-                                        <span><img src="{{asset('backend/assets/images/logo.png')}}" alt="" height="36"></span>
+                                    <a class="text-success font-weight-bolder">
+                                        <p class="font-weight-bolder">Admin Login</p>
                                     </a>
                                 </div>
                             </div>
@@ -99,7 +96,4 @@
         <script src="{{asset('backend/assets/js/app.min.js')}}"></script>
 
     </body>
-
-
-<!-- Mirrored from coderthemes.com/zircos/layouts/horizontal/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 23 Dec 2021 07:43:48 GMT -->
 </html>

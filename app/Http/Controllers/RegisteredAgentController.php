@@ -99,18 +99,21 @@ class RegisteredAgentController extends Controller
      */
     public function updateStatus(Request $request)
     {
-        // $agent = RegisteredAgent::find($request->id);
-        // $agent->status = $request->status;
-        // $agent->save();
-  
-        // return response()->json(['success'=>'Agent status change successfully.']);
-        if($request->state == true) {
-        
-            RegisteredAgent::where('status',0)->update(['status' => 1]);
+        if($request->status ==true) {
+        $agent = RegisteredAgent::find($request->id);
+        $status=$agent->status;
+       if($agent->status==0 )
+       {
+           $agent->status=1;
+       }
+       else
+       {
+        $agent->status=0;
+       }
+        $agent->save();
          
          }
-       
-         return response()->json(['message' => 'status Update']);
+         return response()->json(['message' => 'status Update','status'=>$status]);
     }
     
 

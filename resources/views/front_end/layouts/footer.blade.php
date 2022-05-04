@@ -141,6 +141,7 @@
 <script src="{{asset('front-end/js/mmenu.js')}}"></script>
 <script src="{{asset('front-end/js/aos.js')}}"></script>
 <script src="{{asset('front-end/js/aos2.js')}}"></script>
+{{-- <script src="{{asset('front-end/js/nice-select.js')}}"></script> --}}
 <script src="{{asset('front-end/js/animate.js')}}"></script>
 <script src="{{asset('front-end/js/slick.min.js')}}"></script>
 <script src="{{asset('front-end/js/fitvids.js')}}"></script>
@@ -176,7 +177,7 @@
 
 <script>
     var typed = new Typed('.typed', {
-        strings: ["House ^2000", "Apartment ^2000", "Plaza ^4000"],
+        strings: ["Land ^2000", "House ^2000", "Rooms ^4000"],
         smartBackspace: false,
         loop: true,
         showCursor: true,
